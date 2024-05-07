@@ -8,3 +8,12 @@
   box-sizing: border-box;
   font-size: 16px;
 }
+
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  --dark-navy: #011a27;
+  --blueberry: #063852;
+  --tangerine: #f0810f;
+  --daffodil: #e6df44;
+  --white: #fff;
+}

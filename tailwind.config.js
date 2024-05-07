@@ -1,11 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'dark-navy': '#011a27',
+        'blueberry': '#063852',
+        'tangerine': '#f0810f',
+        'daffodil': '#e6df44',
+        'white': '#fff'
+    },
   },
   plugins: [],
 }
 
+}

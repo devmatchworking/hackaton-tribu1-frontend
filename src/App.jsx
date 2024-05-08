@@ -1,11 +1,8 @@
-import { UserForm } from "./components/UserForm/UserForm";
-import { FormContext, FormProvider } from "./context/Form-Context";
+import { UserFormPage } from './pages/UserFormPage/UserFormPage';
 function App() {
   return (
     <>
-      <FormProvider>
-        <UserForm />
-      </FormProvider>
+      <UserFormPage />
     </>
   );
 }

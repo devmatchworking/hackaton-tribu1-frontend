@@ -102,7 +102,6 @@ export const UserForm = () => {
 
                         <ErrorMessage name="additionalInfo" component={() => <div className='error'>{errors.additionalInfo}</div>} />
                     </div>
-
                     <div className='form-buttons-container'>
                         <BackButton text="Anterior" />
                         <div className='inline ml-3'>

@@ -4,6 +4,10 @@
 
 @layer components{
     
+    .form{
+        @apply relative
+    }
+
     .form-input-container{
         @apply pt-3
     }
@@ -28,7 +32,7 @@
     }
 
     .form-buttons-container{
-        @apply mt-8 fixed right-0
+        @apply mt-8 text-right 
     }
 
 }

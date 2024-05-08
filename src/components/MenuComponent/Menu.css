@@ -5,20 +5,20 @@
 
 @layer components{
 
-    *{
-        @apply text-white;
-    }
+  .stepsContainer {
+    @apply m-10;
+  }
 
-  .container{
-    @apply flex flex-col bg-blue-950 rounded-lg p-10 w-2/5;
+  .steps{
+    @apply flex flex-col bg-blueberry rounded-lg p-10 text-white;
   }
 
   .selection {
-    @apply flex mb-8;
+    @apply flex mb-6;
   }
 
   .number {
-    @apply bg-orange-500 p-2 rounded-full w-16 h-16 content-center mr-8;
+    @apply bg-tangerine p-2 rounded-full w-16 h-16 content-center text-center mr-8;
   }
 
   .step {

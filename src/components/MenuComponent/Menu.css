@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+
+    *{
+        @apply text-white;
+    }
+
+  .container{
+    @apply flex flex-col bg-blue-950 rounded-lg p-10 w-2/5;
+  }
+
+  .selection {
+    @apply flex mb-8;
+  }
+
+  .number {
+    @apply bg-orange-500 p-2 rounded-full w-16 h-16 content-center mr-8;
+  }
+
+  .step {
+    @apply text-left;
+  }
+
+  .information {
+    @apply text-left;
+  }
+}

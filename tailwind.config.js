@@ -11,10 +11,10 @@ export default {
         'blueberry': '#063852',
         'tangerine': '#f0810f',
         'daffodil': '#e6df44',
-        'white': '#fff'
+        'white': '#fff',
+        'blueberry-light': 'rgba(6, 56, 82, 0.6)',
     },
   },
   plugins: [],
 }
-
 }

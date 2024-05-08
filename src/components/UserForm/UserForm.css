@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    
+    .form-input-container{
+        @apply pt-3
+    }
+
+    .form-label{
+        @apply  text-blueberry text-[0.8rem] sm:text-[1.05rem]
+    }
+    .form-input{
+        @apply w-full py-2 pl-4 border border-blueberry-light text-[0.8rem] sm:text-[1rem] focus:outline-none focus:border-tangerine
+    }
+    
+    .error-input{
+        @apply border-red-600
+    }
+
+    .form-area{
+        @apply h-32 resize-none pt-3
+    }
+
+    .error{
+        @apply text-red-600 py-1
+    }
+
+}

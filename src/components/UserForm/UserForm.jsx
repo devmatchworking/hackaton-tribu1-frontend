@@ -1,11 +1,12 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-
+import './UserForm.css'
 export const UserForm = () => {
     return (
         <Formik
             initialValues={{
                 name: '',
+                lastName: '',
                 education: '',
                 experience: '',
                 additionalInfo: '',
@@ -19,12 +20,19 @@ export const UserForm = () => {
                 } else if (!/^[a-zA-Z\s]*$/.test(values.name)) {
                     errors.name = 'El nombre solo puede contener letras'
                 }
+                if (!values.lastName) {
+                    errors.lastName = 'El apellido es requerido'
+                } else if (values.lastName.length < 3) {
+                    errors.lastName = 'El apellido debe tener al menos 3 caracteres'
+                } else if (!/^[a-zA-Z\s]*$/.test(values.lastName)) {
+                    errors.lastName = 'El apellido solo puede contener letras'
+                }
 
                 if (!values.education) {
                     errors.education = 'Formación es requerida'
                 } else if (values.education.length < 3) {
                     errors.education = 'Formación debe tener al menos 3 caracteres'
-                } else if (!/^[a-zA-Z\s]*$/.test(values.education)) {
+                } else if (!/^[a-zA-Z\u00C0-\u024F\s]*$/.test(values.education)) {
                     errors.education = 'Formación solo puede contener letras'
                 }
                 if (values.experience) {
@@ -49,35 +57,47 @@ export const UserForm = () => {
                 }
                 return errors
             }}
-            onSubmit={() => {
-                console.log('Form submitted')
+            onSubmit={(e) => {
+                console.log(e.target.values)
             }}
         >
-            {({ errors }) => (
-                <Form className='border border-red-500'>
-                    <div>
-                        <Field type="text" name="name" placeholder="Ej. Stephen King" />
-                        <span>Nombre y Apellido*</span>
-                        <ErrorMessage name="name" component="div" />
+            {({ errors}) => (
+                <Form className='form' >
+                    {console.log(errors)}
+                    <div className='flex'>
+                    <div className='form-input-container grow pr-2'>
+                        <p className='form-label'>Nombre*</p>
+                        <Field type="text" name="name" placeholder="Ej. Stephen" className={`form-input`}/>
+                        <ErrorMessage name="name" component={() => <div className='error'>{errors.name}</div>} />
                     </div>
-                    <div>
-                        <Field type="text" name="education" placeholder="Ej. Estudiante / Ingeniero en sistemas" />
-                        <span>Formación*</span>
-                        <ErrorMessage name="education" component="div" />
+                    <div className='form-input-container grow pl-2'>
+                        <p className='form-label'>Apellidos*</p>
+                        <Field type="text" name="lastName" placeholder="Ej. King" className={`form-input `}/>
+                        <ErrorMessage name="lastName" component={() => <div className='error'>{errors.lastName}</div>} />
                     </div>
-                    <div>
-                        <Field type="text" as="textarea" name="experience" placeholder="Ej. 2 años desarrollando con APIS con Fast API" />
-                        <span>Experiencia (opcional)</span>
-                        <ErrorMessage name="experience" component="div" />
                     </div>
-                    <div>
-                        <Field type="text" as="textarea" name="additionalInfo" placeholder="Additional Info" />
-                        <span>Información adicional (opcional)</span>
-                        <ErrorMessage name="additionalInfo" component="div" />
+
+                    <div className='form-input-container'>
+                    <p className='form-label'>Formación*</p>
+                        <Field type="text" name="education" placeholder="Ej. Estudiante / Ingeniero en sistemas" className={`form-input`}/>
+                        <ErrorMessage name="education" component={() => <div className='error'>{errors.education}</div>} />
                     </div>
-                    <button type="submit">Submit</button>
+                    <div className='form-input-container'>
+                    <p className='form-label'>Experiencia (opcional)</p>
+                        <Field type="text" as="textarea" name="experience" placeholder="Ej. 2 años desarrollando con APIS con Fast API"  className={`form-input ${errors.experience ? 'error-input' : ''} form-area`}/>
+                        
+                        <ErrorMessage name="experience" component={() => <div className='error'>{errors.experience}</div>}/>
+                    </div>
+                    <div className='form-input-container'>
+                    <p className='form-label'>Información adicional (opcional)</p>
+                        <Field type="text" as="textarea" name="additionalInfo" placeholder="Ingrese información adicional" className={`form-input ${errors.additionalInfo ? 'error-input' : ''} form-area`}/>
+                        
+                        <ErrorMessage name="additionalInfo" component={() => <div className='error'>{errors.additionalInfo}</div>} />
+                    </div>
                 </Form>
             )}
         </Formik>
+
+
     )
 }

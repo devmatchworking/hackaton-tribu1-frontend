@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .next-button{
+        @apply bg-tangerine text-white font-medium border-tangerine hover:brightness-110
+    }
+}

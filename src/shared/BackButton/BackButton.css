@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    
+    .btn{
+        @apply rounded-md px-3 py-1 border-2
+    }
+
+    .back-button{
+        @apply bg-daffodil text-dark-navy font-medium border-daffodil 
+        hover:border-dark-navy hover:bg-white
+    }
+}

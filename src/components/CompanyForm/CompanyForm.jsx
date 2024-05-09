@@ -6,7 +6,7 @@ import { NextButton } from '../../shared/NextButton/NextButton'
 export const CompanyForm = () => {
 
   const { companyForm, setCompanyForm } = React.useContext(FormContext)
-
+  const { userForm, setUserForm } = React.useContext(FormContext)
   return (
     <Formik
       initialValues={{
@@ -66,11 +66,13 @@ export const CompanyForm = () => {
       }}
       onSubmit={(e) => {
         setCompanyForm(e)
-        console.log(e)
       }}
     >
-      {({ errors }) => (
+      {({ errors, isValid=false }) => (
+        
         <Form className='form' >
+            {console.log(userForm)}
+
 
             <div className='form-input-container'>
               <p className='form-label'>Empresa*</p>
@@ -106,7 +108,7 @@ export const CompanyForm = () => {
           <div className='form-buttons-container'>
             <BackButton text="Anterior" />
             <div className='inline ml-3'>
-              <NextButton text="Siguiente" />
+              <NextButton text="Siguiente" disabled={!isValid} />
             </div>
 
           </div>

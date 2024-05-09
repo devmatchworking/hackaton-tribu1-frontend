@@ -1,9 +1,14 @@
 import React from 'react'
 import './NextButton.css'
-export const NextButton = ({text}) => {
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+export const NextButton = ({text, valid}) => {
   return (
     <>
-        <button className='next-button btn' type='submit'>{text}</button>
+    
+        <Link to='/company'>
+        <button  className='next-button btn' type='submit'>{text}</button>
+        </Link>
+    
     </>
   )
 }

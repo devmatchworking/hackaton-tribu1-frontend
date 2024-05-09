@@ -7,10 +7,10 @@
         @apply flex 
     }
     .menu-container{
-        @apply w-[35%]
+        @apply hidden md:block
     }
 
     .form-container{
-        @apply w-[65%] py-14 pl-14 pr-24
+        @apply w-[90%] px-5 py-7 md:w-[65%] md:py-14 md:pl-14 md:pr-24
     }
 }

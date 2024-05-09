@@ -3,4 +3,5 @@ export interface CompanyForm{
     appliedPosition: string,
     recipient: string,
     recipientPosition: string,
+    companyInfo: string
 }

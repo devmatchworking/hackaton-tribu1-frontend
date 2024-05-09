@@ -8,7 +8,7 @@ import './UserForm.css'
 export const UserForm = () => {
 
     const { userForm, setUserForm } = React.useContext(FormContext)
-
+    
 
     return (
         <Formik
@@ -63,6 +63,9 @@ export const UserForm = () => {
                         errors.additionalInfo = 'Información adicional solo puede contener letras'
                     }
                 }
+
+                
+
                 return errors
             }}
             onSubmit={(e) => {
@@ -106,7 +109,6 @@ export const UserForm = () => {
                         <div className='inline ml-3'>
                             <NextButton text="Siguiente" />
                         </div>
-
                     </div>
                 </Form>
             )}

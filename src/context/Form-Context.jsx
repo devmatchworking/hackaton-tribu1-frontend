@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 const FormContext = React.createContext();
 
@@ -18,8 +19,28 @@ function FormProvider({ children }) {
         recipientPosition: '',
     })
 
+    const [globalForm, setGlobalForm] = React.useState({
+        name: '',
+        lastName: '',
+        education: '',
+        experience: '',
+        additionalInfo: '',
+        company: '',
+        appliedPosition: '',
+        recipient: '',
+        recipientPosition: '',
+        companyInfo: ''
+    })
+
+    const updateGlobalForm = (data) => {
+        setGlobalForm((prevData) => ({
+            ...prevData,
+            ...data,
+        }));
+    };
+
     return (
-        <FormContext.Provider value={{userForm, setUserForm, companyForm, setCompanyForm}}>
+        <FormContext.Provider value={{ userForm, setUserForm, companyForm, setCompanyForm, globalForm, setGlobalForm, updateGlobalForm }}>
             {children}
         </FormContext.Provider>
     );

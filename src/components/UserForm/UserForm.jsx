@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormContext } from '../../context/Form-Context'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { BackButton } from '../../shared/BackButton/BackButton'
@@ -8,7 +8,14 @@ import './UserForm.css'
 export const UserForm = () => {
 
     const { userForm, setUserForm } = React.useContext(FormContext)
-    
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
+    useEffect(() => {
+        if (formSubmitted) {
+            const objetoJSON = JSON.stringify(userForm);
+            sessionStorage.setItem("userForm", objetoJSON);
+        }
+    }, [formSubmitted, setUserForm,userForm]);
 
     return (
         <Formik
@@ -64,12 +71,14 @@ export const UserForm = () => {
                     }
                 }
 
-                
+
 
                 return errors
             }}
-            onSubmit={(e) => {
-                setUserForm(e)
+            onSubmit={(values, { setSubmitting }) => {
+                setUserForm(values);
+                setFormSubmitted(true);
+                setSubmitting(false); // Importante: marca el formulario como no enviado
             }}
         >
             {({ errors }) => (
@@ -104,12 +113,7 @@ export const UserForm = () => {
 
                         <ErrorMessage name="additionalInfo" component={() => <div className='error'>{errors.additionalInfo}</div>} />
                     </div>
-                    {/* <div className='form-buttons-container'>
-                        <BackButton text="Anterior" />
-                        <div className='inline ml-3'>
-                            <NextButton text="Siguiente" />
-                        </div>
-                    </div> */}
+                    <button id="submit-btn" type="submit" className='absolute -top-[9999px] -left-[9999px]'>Submit</button>
                 </Form>
             )}
         </Formik>

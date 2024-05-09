@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormProvider } from '../../context/Form-Context';
 import { Menu } from '../MenuComponent/Menu';
 import { UserForm } from '../UserForm/UserForm';
@@ -9,9 +9,30 @@ import DownloadComponent from '../DownloadComponent/DownloadComponent';
 
 const GlobalForm = () => {
     const [parte, setParte] = useState(1);
-    
+
+    useEffect(()=>{
+        sessionStorage.clear();
+    },[])
+
     const handleNext = () => {
-        setParte(Math.min(3, parte + 1));
+        const tmpSubmitBtn = document.getElementById("submit-btn")
+        tmpSubmitBtn.click()
+
+        setTimeout(()=>{
+            const errorDiv = document.getElementsByClassName("error")
+            if(errorDiv.length===0){
+                if(parte===2){
+                    const userData =JSON.parse(sessionStorage.getItem("userForm"))
+                    const companyData =JSON.parse(sessionStorage.getItem("companyForm"))
+                    const formData = {
+                        ...userData,
+                        ...companyData,
+                    };
+                    console.log(formData)
+                }
+                setParte(Math.min(3, parte + 1));
+            }
+        },100)
     };
 
     const handlePrev = () => {
@@ -64,18 +85,18 @@ const GlobalForm = () => {
 
             {parte === 3 && (
                 <>
-                <div className='form-container'>
-                            <h1 className='text-[1.75rem] font-bold'>Carta de Motivación</h1>
-                            <p>Esta es la carta de recomendación que realizamos para ti</p>
-                            <DownloadComponent/>
-                            <div className='form-buttons-container'>
-                                <BackButton text="Anterior" parte={parte} onClick={handlePrev}/>
-                                <div className='inline ml-3'>
-                                    <NextButton onClick={handleNext} text="Guardar" parte={parte} />
-                                </div>
+                    <div className='form-container'>
+                        <h1 className='text-[1.75rem] font-bold'>Carta de Motivación</h1>
+                        <p>Esta es la carta de recomendación que realizamos para ti</p>
+                        <DownloadComponent />
+                        <div className='form-buttons-container'>
+                            <BackButton text="Anterior" parte={parte} onClick={handlePrev} />
+                            <div className='inline ml-3'>
+                                <NextButton onClick={handleNext} text="Guardar" parte={parte} />
                             </div>
-
                         </div>
+
+                    </div>
                 </>
 
             )}

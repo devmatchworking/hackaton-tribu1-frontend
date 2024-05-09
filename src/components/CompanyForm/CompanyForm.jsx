@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormContext } from '../../context/Form-Context'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { BackButton } from '../../shared/BackButton/BackButton'
@@ -6,11 +6,19 @@ import { NextButton } from '../../shared/NextButton/NextButton'
 export const CompanyForm = () => {
 
   const { companyForm, setCompanyForm } = React.useContext(FormContext)
-  const { userForm, setUserForm } = React.useContext(FormContext)
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (formSubmitted) {
+      const objetoJSON = JSON.stringify(companyForm);
+      sessionStorage.setItem("companyForm", objetoJSON);
+    }
+  }, [formSubmitted, setCompanyForm, companyForm]);
+
   return (
     <Formik
       initialValues={{
-        name: '',
+        companyname: '',
         appliedPosition: '',
         recipient: '',
         recipientPosition: '',
@@ -18,12 +26,12 @@ export const CompanyForm = () => {
       }}
       validate={(values) => {
         let errors = {}
-        if (!values.name) {
-          errors.name = 'El nombre de la empresa es requerido'
-        } else if (values.name.length < 3) {
-          errors.name = 'El nombre de la empresa debe tener al menos 3 caracteres'
-        } else if (!/^[a-zA-Z\s]*$/.test(values.name)) {
-          errors.name = 'El nombre de la empresa solo puede contener letras'
+        if (!values.companyname) {
+          errors.companyname = 'El nombre de la empresa es requerido'
+        } else if (values.companyname.length < 3) {
+          errors.companyname = 'El nombre de la empresa debe tener al menos 3 caracteres'
+        } else if (!/^[a-zA-Z\s]*$/.test(values.companyname)) {
+          errors.companyname = 'El nombre de la empresa solo puede contener letras'
         }
         if (!values.appliedPosition) {
           errors.appliedPosition = 'El cargo es requerido'
@@ -33,11 +41,11 @@ export const CompanyForm = () => {
           errors.appliedPosition = 'El cargo solo puede contener letras'
         }
 
-        
+
         if (values.recipient) {
           if (values.recipient.length < 3) {
             errors.recipient = 'Destinatario debe tener al menos 3 caracteres'
-          }else if (!/^[a-zA-Z0-9\u00C0-\u024F\s]*$/.test(values.recipient)) {
+          } else if (!/^[a-zA-Z0-9\u00C0-\u024F\s]*$/.test(values.recipient)) {
             errors.recipient = 'Destinatario solo puede contener letras'
           }
         }
@@ -64,27 +72,27 @@ export const CompanyForm = () => {
         }
         return errors
       }}
-      onSubmit={(e) => {
-        setCompanyForm(e)
+      onSubmit={(values, { setSubmitting }) => {
+        setCompanyForm(values);
+        setFormSubmitted(true);
+        setSubmitting(false);
       }}
     >
-      {({ errors, isValid=false }) => (
-        
+      {({ errors, isValid = false }) => (
+
         <Form className='form' >
-            {console.log(userForm)}
 
+          <div className='form-input-container'>
+            <p className='form-label'>Empresa*</p>
+            <Field type="text" name="companyname" placeholder="Ej. Matchworking" className={`form-input`} />
+            <ErrorMessage name="companyname" component={() => <div className='error'>{errors.companyname}</div>} />
+          </div>
+          <div className='form-input-container'>
+            <p className='form-label'>Cargo aplicado *</p>
+            <Field type="text" name="appliedPosition" placeholder="Ej. Desarrollador frontend" className={`form-input `} />
+            <ErrorMessage name="appliedPosition" component={() => <div className='error'>{errors.appliedPosition}</div>} />
+          </div>
 
-            <div className='form-input-container'>
-              <p className='form-label'>Empresa*</p>
-              <Field type="text" name="name" placeholder="Ej. Matchworking" className={`form-input`} />
-              <ErrorMessage name="name" component={() => <div className='error'>{errors.name}</div>} />
-            </div>
-            <div className='form-input-container'>
-              <p className='form-label'>Cargo aplicado *</p>
-              <Field type="text" name="appliedPosition" placeholder="Ej. Desarrollador frontend" className={`form-input `} />
-              <ErrorMessage name="appliedPosition" component={() => <div className='error'>{errors.appliedPosition}</div>} />
-            </div>
-          
           <div className='form-input-container'>
             <p className='form-label'>Destinatario (opcional)</p>
             <Field type="text" name="recipient" placeholder="Ej. Stephen King" className={`form-input ${errors.recipient ? 'error-input' : ''}`} />
@@ -105,13 +113,8 @@ export const CompanyForm = () => {
 
             <ErrorMessage name="companyInfo" component={() => <div className='error'>{errors.companyInfo}</div>} />
           </div>
-          {/* <div className='form-buttons-container'>
-            <BackButton text="Anterior" />
-            <div className='inline ml-3'>
-              <NextButton text="Siguiente" disabled={!isValid} />
-            </div>
+          <button id="submit-btn" type="submit" className='absolute -top-[9999px] -left-[9999px]'>Submit</button>
 
-          </div> */}
         </Form>
       )}
     </Formik>

@@ -6,7 +6,7 @@
 @layer components{
 
   .stepsContainer {
-    @apply ml-20 h-5/6 flex mt-12;
+    @apply ml-20 h-full flex mt-12 w-96 transition-all duration-300;
   }
 
   .steps{

@@ -105,13 +105,13 @@ export const CompanyForm = () => {
 
             <ErrorMessage name="companyInfo" component={() => <div className='error'>{errors.companyInfo}</div>} />
           </div>
-          <div className='form-buttons-container'>
+          {/* <div className='form-buttons-container'>
             <BackButton text="Anterior" />
             <div className='inline ml-3'>
               <NextButton text="Siguiente" disabled={!isValid} />
             </div>
 
-          </div>
+          </div> */}
         </Form>
       )}
     </Formik>

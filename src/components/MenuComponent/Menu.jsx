@@ -6,7 +6,7 @@ export function Menu() {
       <section className="steps">
         <div className="selection">
           <span className="number">1</span>
-          <div>
+          <div className="info">
             <h2 className="step">Paso 1</h2>
             <span className="information">Información Personal</span>
           </div>
@@ -14,7 +14,7 @@ export function Menu() {
 
         <div className="selection">
           <span className="number">2</span>
-          <div>
+          <div className="info">
             <h2 className="step">Paso 2</h2>
             <span className="information">Información sobre la empresa</span>
           </div>
@@ -22,7 +22,7 @@ export function Menu() {
 
         <div className="selection">
           <span className="number">3</span>
-          <div>
+          <div className="info">
             <h2 className="step">Paso 3</h2>
             <span className="information">Descargar carta</span>
           </div>

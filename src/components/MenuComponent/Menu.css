@@ -18,11 +18,15 @@
   }
 
   .number {
-    @apply bg-tangerine p-2 rounded-full w-16 h-16 content-center text-center mr-8 text-xl;
+    @apply bg-tangerine p-6 rounded-full w-fit h-fit content-center text-center mr-8 text-lg;
   }
 
   .step {
     @apply text-left;
+  }
+
+  .info{
+    @apply flex flex-col justify-center;
   }
 
   .information {

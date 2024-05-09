@@ -67,7 +67,6 @@ export const UserForm = () => {
             }}
             onSubmit={(e) => {
                 setUserForm(e)
-                console.log(e)
             }}
         >
             {({ errors }) => (

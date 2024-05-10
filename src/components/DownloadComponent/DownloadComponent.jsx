@@ -6,6 +6,8 @@ import { saveAs } from "file-saver";
 
 import Template from "../../../src/assets/officialClaim.docx";
 
+import "./DownloadComponent.css";
+
 function loadFile(url, callback) {
   PizZipUtils.getBinaryContent(url, callback);
 }
@@ -22,30 +24,23 @@ class DownloadComponent extends React.Component {
         linebreaks: true,
       });
       doc.render({
-        first_name: "John",
-        last_name: "Doe",
-        phone: "0652455478",
-        description: "New Website",
+        contenido: "",
       });
       const out = doc.getZip().generate({
         type: "blob",
         mimeType:
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      }); // Output the document using Data-URI
-      saveAs(out, "output.docx");
+      });
+      saveAs(out, "solicitud.docx");
     });
   }
 
   render() {
     return (
       <div className="p-2">
-        <h1>Test docxtemplater</h1>
-        <button onClick={this.generateDocument}>Generate document</button>
-        <p>Click the button above to generate a document using ReactJS</p>
-        <p>
-          You can edit the data in your code in this example. In your app, the
-          data would come from your database for example.
-        </p>
+        <button className="buttonDownloader" onClick={this.generateDocument}>
+          Descargar documento
+        </button>
       </div>
     );
   }

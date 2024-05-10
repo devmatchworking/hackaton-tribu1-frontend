@@ -1,7 +1,8 @@
+import { Loader } from "rsuite";
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./UserForm.css";
 import axios from "axios";
+import { ResponseComponent } from "../ResponseComponent/ResponseComponent";
 
 export const UserForm = () => {
   const body = {
@@ -51,40 +52,62 @@ export const UserForm = () => {
     }));
   };
 
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setErrors({}); // Limpiar los errores antes de la validación
 
-    console.log(body);
+    const requiredFields = [
+      "name",
+      "last_name",
+      "email",
+      "contact",
+      "experience",
+      "name", // Este campo parece estar duplicado, asegúrate de eliminar uno de ellos si es necesario
+    ];
+    const errors = {};
+    requiredFields.forEach((field) => {
+      if (
+        !formData.user_info[field] ||
+        formData.user_info[field].trim() === ""
+      ) {
+        errors[field] = "Este campo es obligatorio";
+      }
+    });
 
-    console.log(formData);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors); // Establecer los errores si hay campos obligatorios faltantes
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post(
         "http://localhost:8000/letter",
         formData
       );
-      console.log("Formulario enviado:", formData);
-
-      console.log("Respuesta del servidor:", response.data.content);
 
       setResponse(response.data.content);
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
     } finally {
-      setLoading(false); // Cambiar el estado de loading a false independientemente del resultado
+      setLoading(false);
     }
   };
-
-  const [response, setResponse] = useState("");
-
-  const [loading, setLoading] = useState(false);
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Nombre:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="name">
+            Nombre:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="name"
             name="name"
@@ -92,9 +115,12 @@ export const UserForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="last_name">Apellido:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="last_name">
+            Apellido:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="last_name"
             name="last_name"
@@ -102,9 +128,12 @@ export const UserForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="email">Correo Electrónico:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="email">
+            Correo Electrónico:
+          </label>
           <input
+            className="form-input"
             type="email"
             id="email"
             name="email"
@@ -112,9 +141,12 @@ export const UserForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="contact">Contacto:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="contact">
+            Contacto:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="contact"
             name="contact"
@@ -122,9 +154,12 @@ export const UserForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="experience">Experiencia:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="experience">
+            Experiencia:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="experience"
             name="experience"
@@ -132,9 +167,12 @@ export const UserForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="enterprise_name">Nombre de la Empresa:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="enterprise_name">
+            Nombre de la Empresa:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="enterprise_name"
             name="enterprise_name"
@@ -150,9 +188,12 @@ export const UserForm = () => {
             }
           />
         </div>
-        <div>
-          <label htmlFor="recipient">Destinatario:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="recipient">
+            Destinatario:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="recipient"
             name="recipient"
@@ -168,9 +209,12 @@ export const UserForm = () => {
             }
           />
         </div>
-        <div>
-          <label htmlFor="position">Posición:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="position">
+            Posición:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="position"
             name="position"
@@ -186,9 +230,12 @@ export const UserForm = () => {
             }
           />
         </div>
-        <div>
-          <label htmlFor="vacant">Vacante:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="vacant">
+            Vacante:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="vacant"
             name="vacant"
@@ -204,9 +251,12 @@ export const UserForm = () => {
             }
           />
         </div>
-        <div>
-          <label htmlFor="information">Información:</label>
+        <div className="form-input-container">
+          <label className="form-label" htmlFor="information">
+            Información:
+          </label>
           <input
+            className="form-input"
             type="text"
             id="information"
             name="information"
@@ -222,10 +272,20 @@ export const UserForm = () => {
             }
           />
         </div>
-        <button type="submit">Enviar</button>
+        <button className="form-buttons-container" type="submit">
+          Enviar
+        </button>
       </form>
 
-      {loading ? <p>Enviando formulario...</p> : response && <p>{response}</p>}
+      {loading ? (
+        <Loader speed="slow" size="md" content="Loading..." />
+      ) : (
+        response && (
+          <p className="mt-5 border border-blueberry p-2 min-w-full h-fit">
+            {response}
+          </p>
+        )
+      )}
     </>
   );
 };
